@@ -1,0 +1,81 @@
+{% extends "../base/base.html" %}
+{% block title %}profile{% endblock %}
+{% block content %}
+
+
+
+<div id="upload-form" class="container mt-5  ">
+
+    <div class="row  gy-5 ">
+
+        <div class="col-md-6 p-3 px-5" style="background:rgb(25, 204, 240);">
+            <form id="imgform" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <h5><label for="up-window">You can upload multiple videos</label></h5>
+                <input id="up-window" type="file" multiple name="files" onclick="hide()"
+                    accept="video/mp4,video/x-m4v,video/*" required />
+                <button type="submit" class="btn btn-dark" onclick="loading()">Upload</button>
+            </form>
+        </div>
+
+        <div class="col-md-6 p-3 px-5 " style="background: rgb(114, 249, 240);">
+            <form id="qform" method="post" action="{% url 'video:search' %}">
+                {% csrf_token %}
+                <h5><label for="query">Search words or phrases in videos </label></h5>
+                <textarea id="query" class="col-lg-12" row="5" type="text" name="sentence" required
+                    placeholder="multiple phrases or words are allowed"></textarea>
+                <button type="submit" class="btn btn-success" formtarget="_blank">Search</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div id="progress" class="col mt-5 progress" style="height: 10px;" hidden>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+
+    <div id="alert-card" class="col mt-2 border border-warning text-center rounded-pill  ">
+        <div id="loading" hidden style="color: green; font-weight: bold;">Uploading.., time depends on your internet
+            connection and upload
+            size.</div>
+        <div id="uploaded">{{uploaded}}</div>
+        <div id="inform" hidden style="color: green; font-weight: bold;">Depending upon number of files and size,
+            processing migth take few seconds or couple minutes to show
+            uploads in search result.
+        </div>
+    </div>
+
+    <script>
+        if (document.getElementById("uploaded").textContent != "") {
+            alert("{{uploaded}}")
+            setTimeout(() => { document.getElementById("uploaded").setAttribute("hidden", true) }, 7000)
+            setTimeout(() => { document.getElementById("inform").removeAttribute("hidden") }, 7000)
+            setTimeout(() => { document.getElementById("inform").setAttribute("hidden", true) }, 23000)
+        };
+
+    </script>
+</div>
+
+<script>
+
+    function hide() {
+        setTimeout(() => { document.getElementById("progress").setAttribute("hidden", true) }, 0)
+        setTimeout(() => { document.getElementById("loading").setAttribute("hidden", true) }, 0)
+
+    }
+
+    function loading() {
+
+        if (document.getElementById("up-window").value != "") {
+            setTimeout(() => { document.getElementById("progress").removeAttribute("hidden") }, 0)
+            setTimeout(() => { document.getElementById("loading").removeAttribute("hidden") }, 0)
+            setTimeout(() => { document.getElementById("loading").setAttribute("hidden", true) }, 15000)
+        };
+    }
+</script>
+
+{% endblock %}

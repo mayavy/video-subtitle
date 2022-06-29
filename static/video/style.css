@@ -1,0 +1,72 @@
+#alert-card {
+    font-size: medium;
+    background: rgb(255, 215, 115);
+
+}
+
+
+textarea {
+    width: 100%;
+}
+
+#word-card {
+
+    background: whitesmoke;
+}
+
+#video-card {
+
+    text-decoration: none;
+    color: black;
+    border-color: aqua;
+    background: rgba(25, 204, 240, 0.301);
+}
+
+#video-card>span>a {
+    text-decoration: none;
+}
+
+.duration {
+    color: black;
+    background: linear-gradient(to bottom, white 50%, rgb(255, 0, 0) 50%);
+
+}
+
+#end {
+    color: white;
+}
+
+#expand-videos {
+    color: black;
+    right: 0%;
+    font-size: small;
+    padding: 0 0;
+    background: white;
+
+    align-items: center;
+    max-height: fit-content;
+
+}
+
+#expand-videos:focus {
+    outline: none;
+    box-shadow: none
+}
+
+#video-card {
+    color: rgba(132, 45, 45, 0.76);
+    font-family: 'Lucida Sans';
+
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+
+
+}
+
+
+#video-card:hover {
+    -webkit-line-clamp: unset;
+}

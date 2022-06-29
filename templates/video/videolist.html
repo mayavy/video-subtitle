@@ -1,0 +1,89 @@
+{% extends "../base/base.html" %}
+{% block title %}profile{% endblock %}
+{% block content %}
+
+<h3 class="px-md-5 mt-2 ">Time segments within each video where search word or phrases matched</h3>
+<div class="duration border container fs-6 ">
+  <!-- <div class="row"> -->
+  <div id="start" class="col ">Start(hh:mm:ss,milliseconds)</div>
+  <div id="end" class="col">End(hh:mm:ss,milliseconds)</div>
+</div>
+<!-- </div> -->
+{% for word,list in data.items %}
+
+
+<div id="word-card" class="card-body container border border-info mt-2">
+  <h3 class=" text-start fs-4">{{word}}</h3>
+  {% for entry in list %}
+  {% if forloop.counter <= 2 %} <div id="video-card"
+    class="fs-4  shadow border rounded-2 border-primary mb-1 container">
+    <span><a class="fst-italic" href="{% url 'video:download' video_id=entry.video_id %}">
+        {{entry.video_name}}</a>
+      <time class="fw-light fs-6">Uploaded by {{entry.uploaded_by}}</time>
+    </span> <br />
+    <div class="row text-center ">
+
+      {% for timestep in entry.ranges %}
+      <div class="duration border  m-1 col  fs-6">
+        <div id="start" class="col">{{ timestep.0 }}</div>
+        <div id="end" class="col">{{ timestep.1 }}</div>
+      </div>
+      {% endfor %}
+
+    </div><br />
+</div>
+
+{% endif %}
+{% endfor %}
+
+{% if not list|length <= 2 %} <button id="expand-videos" class="container btn btn-primary mt-0 mb-1" type="button"
+  data-bs-toggle="collapse" data-bs-target="#collapse-{{ word }}" aria-expanded="false"
+  aria-controls="collapse-{{ word }}">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill"
+    viewBox="0 0 16 16">
+    <path
+      d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+  </svg>
+  </button>
+  {% endif %}
+
+  <div class="collapse" id="collapse-{{ word }}">
+    {% for entry in list %}
+
+    {% if forloop.counter > 2 %}
+
+
+
+
+    <div id="video-card" class="fs-4  shadow border rounded-2 border-primary mb-1 container">
+      <span><a class="fst-italic" href="{% url 'video:download' video_id=entry.video_id %}">
+          {{entry.video_name}}</a>
+        <time class="fw-light fs-6">Uploaded by {{entry.uploaded_by}}</time>
+      </span> <br />
+      <div class="row text-center ">
+
+        {% for timestep in entry.ranges %}
+        <div class="duration border  m-1 col  fs-6">
+          <div id="start" class="col">{{ timestep.0 }}</div>
+          <div id="end" class="col">{{ timestep.1 }}</div>
+        </div>
+        {% endfor %}
+
+      </div><br />
+    </div>
+
+    {% endif %}
+    {% endfor %}
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+  {% endfor %}
+
+  {% endblock %}

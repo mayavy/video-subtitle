@@ -1,0 +1,20 @@
+{% extends "../base/base.html" %}
+{% block title %}profile{% endblock %}
+{% block content %}
+{% load static %}
+
+</div>
+
+<div class="col p-3 px-5 " style="background: rgb(114, 249, 240);">
+    <form id="qform" method="post" action="{% url 'video:search' %}">
+        {% csrf_token %}
+        <h5><label for="query">Search words or phrases in videos </label></h5>
+        <textarea id="query" class="col-lg-12" row="5" type="text" name="sentence" required
+            placeholder="multiple phrases or words are allowed"></textarea>
+        <button type="submit" class="btn btn-success" formtarget="_blank">Search</button>
+    </form>
+</div>
+
+
+
+{% endblock %}

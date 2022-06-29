@@ -1,0 +1,7 @@
+boto3==1.24.12
+botocore==1.27.12
+celery==5.2.7
+Django==3.2
+django-dotenv==1.4.2
+django-storages==1.12.3
+markdown==3.3.7
